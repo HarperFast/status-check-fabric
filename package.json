@@ -1,0 +1,6 @@
+{
+  "name": "status-check-fabric",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "A Harper component for checking the status of the HarperDB Fabric instance."
+}

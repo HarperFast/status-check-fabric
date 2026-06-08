@@ -4,7 +4,7 @@
 
 This component enables controlling an instance's status based on a record in the database. This can be used by external systems to know the availability of a specific node.
 
-Fabric uses this to manage your cluster.
+Harper Fabric uses this to manage your cluster.
 
 The status of the node can be
 - retrieved with `GET /status`

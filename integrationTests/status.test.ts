@@ -20,7 +20,7 @@ const require = createRequire(import.meta.url);
 // main entry and pass it explicitly as `harperBinPath`. Documented harness escape hatch.
 const harperBinPath = resolve(dirname(require.resolve('harper')), 'bin/harper.js');
 
-const FIXTURE_PATH = fileURLToPath(new URL('../', import.meta.url));
+const FIXTURE_PATH = fileURLToPath(new URL('../fixture/', import.meta.url));
 
 function authFetch(
 	ctx: ContextWithHarper,
@@ -31,7 +31,7 @@ function authFetch(
 	const creds = Buffer.from(`${ctx.harper.admin.username}:${ctx.harper.admin.password}`).toString('base64');
 	return fetch(`${ctx.harper.httpURL}${path}`, {
 		...rest,
-		headers: { Authorization: `Basic ${creds}`, ...headers },
+		headers: { ...headers, Authorization: `Basic ${creds}` },
 	});
 }
 

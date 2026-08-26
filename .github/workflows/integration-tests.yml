@@ -33,10 +33,14 @@ jobs:
         env:
           NODE_VER: ${{ github.event.inputs.node-version }}
         run: |
+          # Emit JSON *strings*, not bare integers. Actions coerces numbers to
+          # strings when injecting into `node-version:` so the unquoted form
+          # happens to work, but "22" is what setup-node's input actually is —
+          # and a bare number would silently drop a future "22.x"-style value.
           if [ "$NODE_VER" == "all" ] || [ -z "$NODE_VER" ]; then
-            echo "node-versions=[22, 24, 26]" >> $GITHUB_OUTPUT
+            echo 'node-versions=["22", "24", "26"]' >> "$GITHUB_OUTPUT"
           else
-            echo "node-versions=[$NODE_VER]" >> $GITHUB_OUTPUT
+            echo "node-versions=[\"$NODE_VER\"]" >> "$GITHUB_OUTPUT"
           fi
 
   integration-tests:

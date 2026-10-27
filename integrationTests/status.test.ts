@@ -1,10 +1,6 @@
 /**
- * Integration tests for the status-check-fabric Harper component.
- *
- * The production config.yaml and resources.js are staged unmodified as an installed component, so
- * these tests exercise the shipped registration rather than a copy of the handlers. Native MCP's
- * application profile is enabled alongside an ordinary control component, so an empty or disabled
- * MCP surface cannot satisfy the exclusion assertions.
+ * The shipped config.yaml and resources.js are staged unmodified, and a control component keeps the
+ * native MCP inventory non-empty, so an empty or disabled MCP surface cannot pass the exclusion test.
  */
 import { suite, test, before, after } from 'node:test';
 import { strictEqual, ok, deepStrictEqual } from 'node:assert/strict';
@@ -180,8 +176,7 @@ async function listNativeMcpTools(ctx: ContextWithHarper): Promise<string[]> {
 	throw new Error('MCP tools/list did not finish paginating');
 }
 
-// The status component reaches the registry differently under the native module loader, which is
-// an opt-in Harper setting, so both loaders run the same assertions.
+// The opt-in native loader resolves the `harper` import to the real package instead of the scoped module.
 const MODULE_LOADERS = [
 	{ label: 'default module loader', config: {} },
 	{ label: 'native module loader', config: { applications: { moduleLoader: 'native' } } },

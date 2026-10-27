@@ -1,7 +1,9 @@
+import * as harper from 'harper';
+
 const DEFAULT_200_MSG = 'Status endpoint is reporting for duty.';
 const DEFAULT_404_MSG = 'Status endpoint is reporting downtime.';
 
-export class status extends Resource {
+class status extends Resource {
 	allowRead() {
 		return true;
 	}
@@ -24,3 +26,9 @@ export class status extends Resource {
 		await server.operation({ operation: 'set_status', id: 'availability', status: 'Unavailable' });
 	}
 }
+
+// Not exported: jsResource auto-registers exported resources without per-protocol metadata,
+// which would replace this entry and expose the handlers as native MCP tools.
+// The native module loader's `harper` package has no scoped `resources`; its registry is server.resources.
+const registry = harper.resources ?? server.resources;
+registry.set('status', status, { mcp: false });

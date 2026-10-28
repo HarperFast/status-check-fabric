@@ -47,6 +47,6 @@ The status resource is excluded from native MCP. The component registers its res
 
 ## Compatibility
 
-Verified on Harper 5.2.1, the version the development lockfile resolves, and on Harper 5.3.2. Earlier versions are untested. The integration tests run under both the default and the `native` module loader.
+Requires Harper 5.2.1 or later. It is verified on Harper 5.2.1, the version the development lockfile resolves, and on Harper 5.3.2. Earlier versions are unsupported: the component imports `Resource` and `server` from the `harper` module, so it does not load on Harper 4.x. The integration tests run under both the default and the `native` module loader.
 
 Updating an installed component takes effect only after the component is redeployed and Harper's workers reload it, for example with `harper deploy_component` and `restart=true`, or a restart. A node already on Harper 5.2.1 or later, including 5.3.2, needs no Harper upgrade.

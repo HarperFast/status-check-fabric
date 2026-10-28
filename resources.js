@@ -1,7 +1,9 @@
+import { Resource, server } from 'harper';
+
 const DEFAULT_200_MSG = 'Status endpoint is reporting for duty.';
 const DEFAULT_404_MSG = 'Status endpoint is reporting downtime.';
 
-export class status extends Resource {
+class status extends Resource {
 	allowRead() {
 		return true;
 	}
@@ -24,3 +26,7 @@ export class status extends Resource {
 		await server.operation({ operation: 'set_status', id: 'availability', status: 'Unavailable' });
 	}
 }
+
+// Not exported: jsResource registers exported resources without per-protocol options, which would
+// replace this entry and expose the handlers as native MCP tools.
+server.resources.set('status', status, { mcp: false });

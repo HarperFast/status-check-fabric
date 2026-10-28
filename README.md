@@ -40,3 +40,7 @@ This method is used to set the status of the node to 404. This method is authent
 ```shell
 curl -X DELETE http://localhost:9926/status --header "Authorization: Basic XXXXXXXXXXXX"
 ```
+
+## MCP
+
+The `/status` resource is available over HTTP and excluded from native MCP tools.

@@ -1,7 +1,9 @@
 import { Resource } from 'harper';
 
-export class mcpcontrol extends Resource {
+class McpControl extends Resource {
 	get(): string {
 		return 'control';
 	}
 }
+
+export { McpControl as mcpcontrol };
